@@ -16,7 +16,7 @@ timezone: Asia/Jakarta
 
 title: astarajingga # the main title
 
-tagline: A text-focused Jekyll theme # it will display as the subtitle
+tagline: All documentation of my life # it will display as the subtitle
 
 description: >- # used by seo meta and the atom feed
   A minimal, responsive and feature-rich Jekyll theme for technical writing.
@@ -26,23 +26,25 @@ description: >- # used by seo meta and the atom feed
 url: "https://astarajingga.github.io"
 
 github:
-  username: github_username # change to your GitHub username
+  username: astarajingga # change to your GitHub username
 
 twitter:
-  username: twitter_username # change to your Twitter username
+  username: twitter_noname # change to your Twitter username
 
 social:
   # Change to your full name.
   # It will be displayed as the default author of the posts and the copyright owner in the Footer
-  name: your_full_name
-  email: example@domain.com # change to your email address
+  name: Astarajingga
+  email: ginengbimopamungkas # change to your email address
   links:
     # The first element serves as the copyright owner's link
-    - https://twitter.com/username # change to your Twitter homepage
-    - https://github.com/username # change to your GitHub homepage
+    - https://twitter.com/noname # change to your Twitter homepage
+    - https://github.com/astarajingga # change to your GitHub homepage
+
     # Uncomment below to add more social links
-    # - https://www.facebook.com/username
-    # - https://www.linkedin.com/in/username
+
+    - https://www.facebook.com/username
+    - https://www.linkedin.com/in/ginengbimopamungkas
 
 # Site Verification Settings
 webmaster_verifications:
@@ -98,7 +100,7 @@ theme_mode: # [light | dark]
 cdn:
 
 # the avatar on sidebar, support local or CORS resources
-avatar:
+avatar: https://i.pinimg.com/736x/7d/2c/1d/7d2c1d70691daf3ee4ae0e1810c85259.jpg
 
 # The URL of the site-wide social preview image used in SEO `og:image` meta tag.
 # It can be overridden by a customized `page.image` in front matter.
