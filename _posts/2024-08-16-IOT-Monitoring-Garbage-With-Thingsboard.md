@@ -89,7 +89,7 @@ berikut merupakan contoh output/payloud yang akan muncul pada serial monitor ket
 ```
 berikut saya sertakan kode programnya secara lengkap:
 
-```arduino
+```c++
 #include <SoftwareSerial.h>
 #include <TinyGPS++.h>
 #include <ESP8266WiFi.h>
