@@ -1,84 +1,79 @@
 ---
-title: "Membuat Device IoT: [Pengembangan alat Monitoring Tempat Sampah menggunakan Platform Thingsboard untuk mendukung Smart City]"
+title: "Membuat Device IoT: Monitoring Tempat Sampah Berbasis ESP8266 dan ThingsBoard untuk Smart City"
 date: 2025-05-30
 categories: [IoT, Tutorial]
 math: true
 tags: [ESP8266, ESP32, Arduino, IoT, Sensor]
-author: astarajingga
 image:
   path: /assets/img/smartgarbage.png
-  alt: "[Pengembangan alat Monitoring Tempat Sampah menggunakan Platform Thingsboard untuk mendukung Smart City]"
+  alt: "Monitoring Tempat Sampah dengan IoT dan ThingsBoard"
 ---
 
-> Panduan langkah demi langkah membuat device IoT menggunakan [ESP8266/ESP32] untuk 
-
-## 1. Tujuan
-
-Judul ini diangkat sebagai respons terhadap masih rendahnya perhatian terhadap pengelolaan dan manajemen limbah di wilayah perkotaan, yang berakibat pada berbagai permasalahan lingkungan salah satunya adalah bencana alam banjir yang sangat mengganggu, karena saya dan rekan saya salah satu korban hehe. Oleh karena itu, saya dan rekan saya (pascal) merancang alat/sistem ini untuk sedikit mengurangi dampak tersebut. tidak hanya itu, alat ini dirancang sekaligus untuk memenuhi tugas besar pada salah satu mata kuliah kami, perangkat ini dirancang sebagai solusi berbasis teknologi untuk mendukung sistem Monitoring Tempat Sampah dengan memanfaatkan mikrokontroler [ESP8266]. Alat ini bertujuan untuk memenuhi kebutuhan pemantauan secara real-time melalui integrasi dengan platform Internet of Things (IoT) seperti [ThingsBoard], namun bukan hanya Thingsboard saja, alat yang kami buat dapat diaplikasikan ke berbagai platform IoT lain sperti [ThingSpeak, Blynk, MQTT, maupun Web API].
-
-pada dasarnya kami memilih thingsboard karena mudah digunakan dan gratis, serta tampilan `widget` yang ditawarkan cukup menarik dan cocok untuk diaplikasikan pada project yang kami buat.
+> 📡 Panduan langkah demi langkah membuat sistem IoT untuk pemantauan tempat sampah real-time menggunakan ESP8266 dan ThingsBoard.
 
 ---
 
-## 2. Alat dan Bahan
-adapun alat dan bahan yang digunakan untuk simulasi awal adalah :
+## 🎯 1. Tujuan
+Judul ini diangkat sebagai respons terhadap masih rendahnya perhatian terhadap pengelolaan dan manajemen limbah di wilayah perkotaan, yang berakibat pada berbagai permasalahan lingkungan salah satunya adalah bencana alam banjir yang sangat mengganggu, karena saya dan rekan saya yang notabennya salah satu korban hehe. Oleh karena itu, saya dan rekan saya (pascal) merancang alat/sistem ini untuk sedikit mengurangi dampak tersebut. tidak hanya itu, alat ini dirancang sekaligus untuk memenuhi tugas besar pada salah satu mata kuliah kami, perangkat ini dirancang sebagai solusi berbasis teknologi untuk mendukung sistem Monitoring Tempat Sampah dengan memanfaatkan mikrokontroler unit [ESP8266] yang sering digunakan oleh para pengembang karena fleksible. Alat ini bertujuan untuk memenuhi kebutuhan pemantauan secara real-time melalui integrasi dengan platform Internet of Things (IoT) seperti [ThingsBoard], namun bukan hanya Thingsboard saja, alat yang kami buat dapat diaplikasikan ke berbagai platform IoT lain sperti [ThingSpeak, Blynk, MQTT, maupun Web API dan sejenisnya].
 
-| No | Komponen            | Jumlah | Keterangan             |
-|----|---------------------|--------|------------------------|
-| 1  | ESP8266             | 1      | Microcontroller utama  |
-| 2  | GPS Neo 6M          | 1      | Untuk mengetahui posisi tempat sampah     |
-| 3  | Breadboard + Kabel  | 1 set  | Untuk perakitan awal   |
-| 4  | Sensor gas MQ2      | 1      | untuk mengukur kontaminan gas dalam tempat sampah|
-| 5  | `Modul WiFi/GSM`    | 1      | `opsional Jika diperlukan`        |
-| 6  | Sensor Ultrasonik HC SR-04    | -      | untuk mengukur kapasitas sampah        |
-| 7  | PowerBank 5V     | -      | Sebagai daya utama untuk esp8266      |
----
+pada dasarnya kami memilih [ThingsBoard](https://thingsboard.io) karena mudah digunakan, gratis (open-source), dukungan MQTT yang solid, serta tampilan `widget` yang ditawarkan cukup menarik dan cocok untuk diaplikasikan pada project yang kami buat.
 
-urgensi pada komponen yang kami gunakan diatas merupakan tahap pengembangan. oleh karena itu kami dengan senang hati dan terbuka menerima segala masukkan jika ada urgensi khusus pada salah satu komponen yang menurut pembaca baik untuk diaplikasikan pada project ini.
+## 🧰 2. Alat dan Bahan
 
-## 3. Konsep Dasar
+| Komponen                      | jumlah           | Fungsi                            |
+| :---------------------------- | :----------------| --------------------------------- |
+| ESP8266 AMICA                 |         1        | mikrokontroller                   |
+| GPS NEO 6M                    |         1        | Posisioning                       |
+| ULTRASONIK HC-SR04            |         1        | Mengukur tingkat kepenuhan sampah |
+| SENSOR GAS MQ2                |         1        | mengukur tingkat kontaminan gas   |
 
+> 💡 *Komponen dapat disesuaikan sesuai kebutuhan lapangan. Kami terbuka terhadap saran dan modifikasi.*
+
+## 🧠 3. Konsep Dasar Sistem
 Sistem yang dikembangkan merupakan solusi Internet of Things (IoT) untuk pemantauan tempat sampah cerdas yang berfungsi secara real-time. Perangkat utama terdiri dari mikrokontroler ESP8266, dilengkapi dengan sejumlah sensor dan modul komunikasi untuk mengukur dan mengirimkan data ke platform ThingsBoard melalui protokol MQTT.
 
-### 3.1 Arsitektur Sistem
+### 🗂️ 3.1 Arsitektur Sistem
+- **IoT (Internet of Things)**: Jaringan perangkat fisik yang saling terhubung dan dapat bertukar data.
+- **Sensor**: Mengukur variabel lingkungan (jarak, gas, lokasi).
+- **Platform Cloud (ThingsBoard)**: Menyimpan, menampilkan, dan mengelola data sensor secara real-time.
 
-- **IoT (Internet of Things)**: Jaringan perangkat fisik yang terhubung ke internet.
-- **Sensor**: Mengambil data fisik dari lingkungan.
-- **Cloud Platform**: Menyimpan dan menganalisis data sensor.
+### 📦 3.2 Komponen dan Fungsinya
 
----
-Data yang dikumpulkan berupa:
-- Lokasi geografis (latitude, longitude),
-- Tingkat kepenuhan tempat sampah,
-- Kadar gas di lingkungan sekitar.
-
-### 3.2 Komponen dan Fungsinya
-
-#### 3.2.1 Mikrokontroler ESP8266
+#### 🔌 3.2.1 ESP8266 Amica
 ESP8266 berperan sebagai pusat kendali yang mengintegrasikan seluruh komponen sensor dan komunikasi. Mikrokontroler ini memiliki konektivitas WiFi bawaan, serta mampu menjalankan komunikasi MQTT dengan ThingsBoard Cloud.
 
-#### 3.2.2 Sensor Ultrasonik HC-SR04
+#### 📏 3.2.2 Sensor Ultrasonik HC-SR04
 Sensor ini digunakan untuk mengukur jarak antara penutup tempat sampah dan permukaan sampah. Jarak yang diperoleh kemudian digunakan untuk menghitung tingkat kepenuhan (dalam persentase) berdasarkan rumus:
 
-```math
+$$
 \text{Kepenuhan}(\%) = \left( \frac{H - d}{H} \right) \times 100
-```
+$$
 
 Dengan:
-- H = tinggi maksimum tempat sampah (100 cm),
-- 𝑑
-d = jarak aktual dari sensor ke permukaan sampah.
+- \( H \) = tinggi maksimal tong (100 cm),
+- \( d \) = jarak dari sensor ke permukaan sampah.
 
-#### 3.2.3 Sensor Gas MQ-2
+📌 *Contoh perhitungan:*  
+Jika \( d = 30 \), maka:
+
+$$
+\text{Kepenuhan} = \left( \frac{100 - 30}{100} \right) \times 100 = 70\%
+$$
+
+anda dapat menyeseuaikan sendiri kode dengan ketinggian tempat sampah yang anda miliki, anda hanya perlu mengubah baris kode dibahwah:
+
+``` c++
+float max_tong_cm = 100.0; // ubah sesuai dengan ketinggian tempat sampah anda, jika 50 cm, tuliskan "50.0"
+```
+
+#### 🌫 3.2.3 Sensor Gas MQ-2
 Sensor MQ-2 mampu mendeteksi gas seperti LPG, asap, alkohol, dan karbon monoksida. Nilai analog dari sensor digunakan sebagai indikator tingkat pencemaran udara di sekitar tempat sampah.
 
-#### 3.2.4 Modul GPS (TinyGPS++)
+#### 🛰 3.2.4 GPS NEO-6M (TinyGPS++)
 Modul GPS digunakan untuk mendapatkan data posisi geografis dari perangkat. Data latitude dan longitude dikodekan melalui pustaka `TinyGPSPlus` untuk kemudian dikirimkan ke server ThingsBoard.
 
-#### 3.2.4 Protokol MQTT dan ThingsBoard
-ESP8266 mengirimkan data melalui protokol MQTT ke platform ThingsBoard Cloud, menggunakan token otentikasi khusus. Payload data dikirim dalam format JSON, dan dapat divisualisasikan dalam bentuk grafik, tabel, maupun peta lokasi.
-
-berikut merupakan contoh output/payloud yang akan muncul pada serial monitor ketika kode di upload pada ESP8266:
+#### 📡 3.2.5 MQTT dan ThingsBoard
+ESP8266 menggunakan protokol MQTT untuk mengirim data dalam format JSON:
 ```json
 {
   "latitude": -6.123456,
@@ -87,44 +82,74 @@ berikut merupakan contoh output/payloud yang akan muncul pada serial monitor ket
   "gas": 456
 }
 ```
-berikut saya sertakan kode programnya secara lengkap:
+
+## 💻 4. Alur Kerja Sistem
+
+1. ESP8266 terhubung ke jaringan WiFi.
+2. Membaca data dari sensor:
+   - 🔊 **Ultrasonik (HC-SR04)** → mengukur jarak → dihitung tingkat kepenuhan,
+   - 🌫 **MQ2** → membaca tingkat kontaminasi gas,
+   - 🛰 **GPS NEO-6M** → mengambil koordinat lokasi.
+3. Data diolah dan dikemas dalam format **JSON**.
+4. Dikirim secara berkala setiap **2 detik** ke **ThingsBoard Cloud** via protokol **MQTT**.
+5. Data ditampilkan dalam bentuk:
+   - 📈 Grafik,
+   - 📋 Tabel,
+   - 🗺 Peta Lokasi.
+
+---
+
+## 🔧 5. Skematik Rangkaian
+
+![Desktop View](/assets/img/smartgarbage.png)
+
+---
+
+## 🌍 6. Tampilan Dashboard ThingsBoard
+
+![Desktop View](/assets/img/thingsboard.png)
+
+---
+
+## 🔣 7. Source Code Arduino
+
+kode lengkap:
 
 ```c++
+// === Library yang digunakan ===
 #include <SoftwareSerial.h>
 #include <TinyGPS++.h>
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
 
-// ===== konfigurasi untuk GPS =====
+// === Konfigurasi GPS ===
 static const int RXPin = D7;
 static const int TXPin = D8;
 static const uint32_t GPSBaud = 9600;
 TinyGPSPlus gps;
 SoftwareSerial ss(RXPin, TXPin);
 
-// ===== konfigurasi WIFI =====
-const char* ssid = ""; // gunakan ssid wifi anda
-const char* password = ""; // gunakan password wifi anda
-
-// ===== MQTT ThingsBoard =====
+// === WiFi & MQTT Configuration ===
+const char* ssid = "";       // Ganti dengan SSID WiFi kamu
+const char* password = "";   // Ganti dengan password WiFi kamu
 const char* mqtt_server = "thingsboard.cloud";
 const int mqtt_port = 1883;
-const char* token = ""; // gunakan akses token yang telah anda buat di thingsboard
+const char* token = "";      // Ganti dengan access token dari ThingsBoard
 
 WiFiClient espClient;
 PubSubClient client(espClient);
 
-// ===== konfigurasi sensor =====
+// === Konfigurasi Sensor ===
 #define TRIG_PIN D5
 #define ECHO_PIN D6
 #define MQ2_PIN A0
 float max_tong_cm = 100.0;
 
-// ===== Waktu upload data ke thingsboard =====
+// === Waktu Interval Kirim Data ===
 unsigned long lastSendTime = 0;
-const unsigned long interval = 2000;  // 2 detik merupakan interval waktu yang saya gunakan agar perubahan data lebih cepat tetapi tentu saja akan memakan lebih banyak bandwidth internet anda.
+const unsigned long interval = 2000;  // Kirim setiap 2 detik
 
-// ===== koneksi WIFI =====
+// === Setup WiFi ===
 void setup_wifi() {
   delay(10);
   Serial.print("Connecting to WiFi");
@@ -136,7 +161,7 @@ void setup_wifi() {
   Serial.println("\nWiFi connected");
 }
 
-// ===== MQTT =====
+// === Reconnect MQTT ===
 void reconnect() {
   while (!client.connected()) {
     Serial.print("Connecting to ThingsBoard...");
@@ -151,7 +176,7 @@ void reconnect() {
   }
 }
 
-// ===== fungsi sensor =====
+// === Fungsi Sensor Jarak ===
 float getDistanceCM() {
   digitalWrite(TRIG_PIN, LOW);
   delayMicroseconds(2);
@@ -165,11 +190,12 @@ float getDistanceCM() {
   return distance_cm;
 }
 
+// === Fungsi Sensor Gas ===
 int readGasLevel() {
   return analogRead(MQ2_PIN);
 }
 
-// ===== Setup =====
+// === Setup Awal ===
 void setup() {
   Serial.begin(115200);
   ss.begin(GPSBaud);
@@ -182,15 +208,13 @@ void setup() {
   client.setServer(mqtt_server, mqtt_port);
 }
 
-// ===== Loop =====
+// === Loop Utama ===
 void loop() {
   if (!client.connected()) reconnect();
   client.loop();
 
-  // Update data GPS
   while (ss.available() > 0) gps.encode(ss.read());
 
-  // Kirim data setiap interval
   if (millis() - lastSendTime >= interval && gps.location.isValid()) {
     lastSendTime = millis();
 
@@ -222,18 +246,7 @@ void loop() {
 }
 ```
 
-## 4. Alur kerja sistem
-Berikut adalah tahapan alur kerja sistem:
+## 📌 8. Penutup
+Proyek ini merupakan langkah awal kami untuk membangun sistem Smart Waste Management berbasis teknologi. Diharapkan alat ini bisa dikembangkan lebih lanjut agar bisa terintegrasi dengan sistem kota cerdas (smart city).
+> 🙌 Jika kamu tertarik mencoba atau mengembangkan, jangan ragu untuk menghubungi kami atau tinggalkan komentar!
 
-ESP8266 melakukan inisialisasi koneksi ke jaringan WiFi dan menghubungkan dirinya ke server MQTT ThingsBoard. Setelah koneksi berhasil, sistem mulai membaca data dari beberapa sensor, yaitu sensor ultrasonik HC-SR04 untuk mengukur jarak antara tutup tong dan permukaan sampah sebagai indikator tingkat kepenuhan, sensor MQ-2 untuk mendeteksi konsentrasi gas sebagai indikator adanya potensi kontaminan, serta modul GPS untuk memperoleh informasi lokasi perangkat. Data dari ketiga komponen ini kemudian diolah dan dikemas dalam format JSON. Payload JSON ini dikirim secara berkala setiap 2 detik ke platform ThingsBoard melalui protokol MQTT. Selanjutnya, data ditampilkan dalam bentuk visual melalui antarmuka ThingsBoard, memungkinkan pengguna untuk memantau status tempat sampah secara langsung dan real-time.
-
-## 5. Rangkaian dan Skematik
-
-![Desktop View](/assets/img/smartgarbage.png)
-
-## 6. Tampilan Thingsboard
-
-![Desktop View](/assets/img/thingsboard.png)
-
-
-nanti disambung

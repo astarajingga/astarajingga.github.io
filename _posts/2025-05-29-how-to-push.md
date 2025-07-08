@@ -1,7 +1,6 @@
 ---
 title: HOW TO PUSH
 description: Berikut adalah contoh penulisan untuk melakukan update pada website Jekyll (static) pada GitHub. 
-author: [astarajingga]
 categories: [Setup]
 tags: [github]
 math: true

@@ -29,7 +29,7 @@ github:
   username: astarajingga # change to your GitHub username
 
 twitter:
-  username: twitter_noname # change to your Twitter username
+  username: # change to your Twitter username
 
 social:
   # Change to your full name.
@@ -226,3 +226,4 @@ jekyll-archives:
   permalinks:
     tag: /tags/:name/
     category: /categories/:name/
+math: true
