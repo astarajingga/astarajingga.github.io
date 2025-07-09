@@ -1,7 +1,7 @@
 ---
 title: "Membuat Device IoT: Monitoring Tempat Sampah Berbasis ESP8266 dan ThingsBoard untuk Smart City"
 date: 2025-05-30
-categories: [IoT, Tutorial]
+categories: [IoT, Tutorial, microcontroller]
 math: true
 tags: [ESP8266, ESP32, Arduino, IoT, Sensor]
 image:
