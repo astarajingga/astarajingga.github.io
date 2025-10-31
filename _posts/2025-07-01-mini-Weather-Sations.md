@@ -1,22 +1,38 @@
 ---
-title: "Membuat Custom Small Display Mini Weather Stations Dengan Koneksi API"
+title: "Membangun Mini Weather Station Real-Time dengan Wemos D1 Mini dan Layar TFT ST7789 (API OpenWeatherMap)"
 date: 2025-07-07 12:30:00 +0800
-categories: [IoT, Tutorial, microcontroller, Weather Station]
+categories: [IoT, Tutorial, Microcontroller, Arduino, ESP32, ESP8266]
 math: true
-tags: [ESP8266, ESP32, Arduino, IoT, Sensor]
+tags: [ESP8266, IoT, Sensor]
+pin: true
 image:
-  path: /assets/img/weather-station.png
+  path: /assets/img/weather-station.png 
   alt: "Mini Weather Station Display with MCU Wemos D1 mini and Tft Diplay St7789 240x240 Pixels"
 ---
 
-# 📘 Tutorial: Membuat Custom Small Display Mini Weather Station dengan Koneksi API menggunakan Wemos D1 Mini dan Layar TFT ST7789
+# 📘 Tutorial: Membuat mini weather station menggunakan wemos D1 mini dan tft display, sangat cocok untuk hiasan kamar anda ✨.
 
 ---
 
 ## 📌 1. Tujuan
 
-Membuat perangkat stasiun cuaca mini yang menampilkan informasi cuaca real-time (suhu, kondisi cuaca, kelembaban) pada layar TFT ST7789, dengan data dari API *OpenWeatherMap*, menggunakan koneksi WiFi dari **Wemos D1 Mini (ESP8266)**.
+Halo teman-teman maker dan penggemar DIY! Pada tutorial kali ini, saya akan sedikit membagikan cara membuat hiasan modern dan aesthetic berupa perangkat stasiun cuaca mini. Perangkat ini mampu menampilkan informasi real-time seperti: cuaca saat ini, suhu, kelembapan, waktu, lokasi, tanggal/bulan/tahun
+semuanya ditampilkan dengan sangat indah pada layar TFT Display ST7789.
 
+>**"🗣️Darimana semua data yang kita perlukan diambil bang?"**
+
+Data cuaca diambil **langsung dari API** yang telah kita buat di **[OpenWeatherMap](https://openweathermap.org/)**. untuk caranya nanti saya akan buatkan dalam satu tutorial khusus. sediktit penjelasan pada alur sistem alat weather stations ini, ketika perangkat weather station yang kita flash dengan program **terkoneksi ke internet/WiFi**, program alat kita secara otomatis meminta seluruh data ke server **OpenWeatherMap**, data yang masuk masih dalam format JSON yaaa, setelah data berhasil didapatkan, kemudian akan dikonversi ke tampilan gambar, atau gif sesuai dengan ketentuan yang kita buat dalam kode program.
+
+>**"🗣️bisa custom gambarnya dong bang?"**
+
+jbetul sekali, jadi sebenarnya anda dapat membuat sendiri custom gambarnya, dengan cara mengkonversi gambar dari format (jpg,png,dll) ke format **array** atau **Hex**. mungkin nanti saya akan buatkan juga bagaimana cara membuat custom tampilan layarnya sesuai dengan gambar yang kita inginkan.
+
+**Keren, kan? dan pastinya agak pusing juga sih**
+
+**gapapa kok, saya juga pusing, kita sama sama pusing aja 😅**
+
+Tidak perlu sensor fisik, cukup WiFi + API = stasiun cuaca mini yang cerdas! 🚀
+setelah kita sudah sedikit memeahami cara kerja atau alur dari alat yang akan kita buat, kita lanjut ke tahap kedua.
 ---
 
 ## 🧰 2. Alat dan Bahan
@@ -34,16 +50,20 @@ Membuat perangkat stasiun cuaca mini yang menampilkan informasi cuaca real-time 
 
 ## 📚 3. Teori Singkat
 
-- **Wemos D1 Mini** adalah board mikrokontroller kecil dengan menggunakan chip dari ESP8266 yang memiliki fitur koneksi WiFi, sangat cocok untuk proyek IoT skala kecil.
-- **ST7789** adalah modul layar TFT SPI dengan resolusi 240x240 piksel.
-- **OpenWeatherMap API** menyediakan data cuaca gratis dengan format JSON.
-- Gambar ikon cuaca dapat ditampilkan pada layar berdasarkan kondisi seperti `clear`, `clouds`, `rain`, dll.
+sedikit teori singkat mengenai bahan - bahan yang akan kita gunakan dalam project kali ini diantaranya adalah :
+
+- [x] **Wemos D1 Mini** 
+adalah board mikrokontroller kecil dengan menggunakan   chip dari ESP8266 yang memiliki fitur koneksi WiFi, sangat cocok untuk proyek IoT skala kecil."
+- [x] **TFT Display ST7789**
+adalah modul layar TFT SPI dengan resolusi 240x240 piksel.
+- [x] **OpenWeatherMap API**
+menyediakan data cuaca gratis dengan format JSON Gambar ikon cuaca dapat ditampilkan pada layar berdasarkan kondisi seperti `clear`, `clouds`, `rain`, dll.
 
 ---
 
 ## ⚙️ 4. Langkah-Langkah Pembuatan
 
-### 🔧 4.1 Koneksi Perangkat Keras
+### Koneksi Pin Perangkat
 
 | ST7789 Pin | Wemos D1 Mini | Keterangan   |
 |------------|---------------|--------------|
@@ -59,9 +79,9 @@ Membuat perangkat stasiun cuaca mini yang menampilkan informasi cuaca real-time 
 
 ---
 
-### 💻 4.2 Instalasi Library
+### 💻 Instalasi Library
 
-Pastikan anda telah menginstal di Arduino IDE:
+Pastikan anda telah menginstal library yang diperlukan di Arduino IDE antara lain sebagai berikut:
 
 - **Board**: ESP8266 by ESP8266 Community
   - URL Board Manager: `http://arduino.esp8266.com/stable/package_esp8266com_index.json`
@@ -75,7 +95,7 @@ Pastikan anda telah menginstal di Arduino IDE:
 
 ---
 
-### ✏️ 4.3 Contoh Kode Program
+### ✏️ Contoh Kode Program
 
 ```c++
 #include <ESP8266WiFi.h>
@@ -149,3 +169,5 @@ void loop() {
   delay(60000); // Update tiap 60 detik
 }
 ```
+
+

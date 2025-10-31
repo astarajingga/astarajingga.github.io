@@ -4,7 +4,7 @@ description: Examples of text, typography, math equations, diagrams, flowcharts,
 date: 2019-08-08 11:33:00 +0800
 categories: [Blogging, Demo]
 tags: [typography]
-pin: true
+pin: false
 math: true
 mermaid: true
 image:
@@ -51,9 +51,9 @@ Quisque egestas convallis ipsum, ut sollicitudin risus tincidunt a. Maecenas int
 ### ToDo list
 
 - [ ] Job
-  - [x] Step 1
-  - [x] Step 2
-  - [ ] Step 3
+- [x] Step 1
+- [x] Step 2
+- [ ] Step 3
 
 ### Description list
 
