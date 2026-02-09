@@ -25,7 +25,7 @@ Data cuaca diambil **langsung dari API** yang telah kita buat di **[OpenWeatherM
 
 >**"🗣️bisa custom gambarnya dong bang?"**
 
-jbetul sekali, jadi sebenarnya anda dapat membuat sendiri custom gambarnya, dengan cara mengkonversi gambar dari format (jpg,png,dll) ke format **array** atau **Hex**. mungkin nanti saya akan buatkan juga bagaimana cara membuat custom tampilan layarnya sesuai dengan gambar yang kita inginkan.
+bagus, betul sekali, jadi sebenarnya anda dapat membuat sendiri custom gambarnya, dengan cara mengkonversi gambar dari format (jpg,png,dll) ke format **array** atau **Hex**. mungkin nanti saya akan buatkan juga bagaimana cara membuat custom tampilan layarnya sesuai dengan gambar yang kita inginkan.
 
 **Keren, kan? dan pastinya agak pusing juga sih**
 

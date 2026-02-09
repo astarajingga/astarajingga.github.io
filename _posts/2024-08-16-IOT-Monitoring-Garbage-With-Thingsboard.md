@@ -1,7 +1,7 @@
 ---
 title: "Membuat Device IoT: Monitoring Tempat Sampah Berbasis ESP8266 dan ThingsBoard untuk Smart City"
 date: 2025-05-30
-categories: [IoT, Tutorial, microcontroller]
+categories: [IoT, Tutorial, smart-waste-management]
 math: true
 tags: [ESP8266, ESP32, Arduino, IoT, Sensor]
 image:
@@ -14,7 +14,7 @@ image:
 ---
 
 ## 🎯 1. Tujuan
-Judul ini diangkat sebagai respons terhadap masih rendahnya perhatian terhadap pengelolaan dan manajemen limbah di wilayah perkotaan, yang berakibat pada berbagai permasalahan lingkungan salah satunya adalah bencana alam banjir yang sangat mengganggu, karena saya dan rekan saya yang notabennya salah satu korban hehe. Oleh karena itu, saya dan rekan saya (pascal) merancang alat/sistem ini untuk sedikit mengurangi dampak tersebut. tidak hanya itu, alat ini dirancang sekaligus untuk memenuhi tugas besar pada salah satu mata kuliah kami, perangkat ini dirancang sebagai solusi berbasis teknologi untuk mendukung sistem Monitoring Tempat Sampah dengan memanfaatkan mikrokontroler unit [ESP8266] yang sering digunakan oleh para pengembang karena fleksible. Alat ini bertujuan untuk memenuhi kebutuhan pemantauan secara real-time melalui integrasi dengan platform Internet of Things (IoT) seperti [ThingsBoard], namun bukan hanya Thingsboard saja, alat yang kami buat dapat diaplikasikan ke berbagai platform IoT lain sperti [ThingSpeak, Blynk, MQTT, maupun Web API dan sejenisnya].
+Judul ini diangkat sebagai respons terhadap rendahnya perhatian terhadap pengelolaan dan manajemen limbah di wilayah perkotaan, yang berakibat pada berbagai permasalahan lingkungan salah satunya adalah bencana alam banjir yang sangat mengganggu, karena saya dan rekan saya yang notabennya salah satu korban hehe. Oleh karena itu, saya dan rekan saya (pascal) merancang alat/sistem ini untuk sedikit mengurangi dampak tersebut. tidak hanya itu, alat ini dirancang sekaligus untuk memenuhi tugas besar pada salah satu mata kuliah kami, perangkat ini dirancang sebagai solusi berbasis teknologi untuk mendukung sistem Monitoring Tempat Sampah dengan memanfaatkan mikrokontroler unit [ESP8266] yang sering digunakan oleh para pengembang karena fleksible. Alat ini bertujuan untuk memenuhi kebutuhan pemantauan secara real-time melalui integrasi dengan platform Internet of Things (IoT) seperti [ThingsBoard], namun bukan hanya Thingsboard saja, alat yang kami buat dapat diaplikasikan ke berbagai platform IoT lain sperti [ThingSpeak, Blynk, MQTT, maupun Web API dan sejenisnya].
 
 pada dasarnya kami memilih [ThingsBoard](https://thingsboard.io) karena mudah digunakan, gratis (open-source), dukungan MQTT yang solid, serta tampilan `widget` yang ditawarkan cukup menarik dan cocok untuk diaplikasikan pada project yang kami buat.
 
@@ -130,8 +130,8 @@ TinyGPSPlus gps;
 SoftwareSerial ss(RXPin, TXPin);
 
 // === WiFi & MQTT Configuration ===
-const char* ssid = "";       // Ganti dengan SSID WiFi kamu
-const char* password = "";   // Ganti dengan password WiFi kamu
+const char* ssid = "";       // Ganti dengan SSID WiFi anda
+const char* password = "";   // Ganti dengan password WiFi anda
 const char* mqtt_server = "thingsboard.cloud";
 const int mqtt_port = 1883;
 const char* token = "";      // Ganti dengan access token dari ThingsBoard
@@ -248,5 +248,6 @@ void loop() {
 
 ## 📌 8. Penutup
 Proyek ini merupakan langkah awal kami untuk membangun sistem Smart Waste Management berbasis teknologi. Diharapkan alat ini bisa dikembangkan lebih lanjut agar bisa terintegrasi dengan sistem kota cerdas (smart city).
+
 > 🙌 Jika kamu tertarik mencoba atau mengembangkan, jangan ragu untuk menghubungi kami atau tinggalkan komentar!
 
